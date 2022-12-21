@@ -17,7 +17,7 @@ print(type(words))
 
 print(words.count('engine'))
 
-alteration_signs = '.,[]1234567890;:!?-()'
+alteration_signs = '.,"[]1234567890;:!?-–()'
 preprocessed_words = list()
 # pre-processing каждого слова
 for i, word in enumerate(words):
@@ -26,29 +26,36 @@ for i, word in enumerate(words):
     # пословица "пилить сук на котором сидишь"
     words[i] = word
     # лучше создать новый список и туда сохранять
-    preprocessed_words.append(word)
+
+    # если слово НЕ (not) пустое, то мы его добавляем
+    if word:
+        preprocessed_words.append(word)
 print(preprocessed_words)
 print(words)
 word_counts = list()
+counted_words_set = set()
 for word in preprocessed_words:
-     x = preprocessed_words.count(word)
-     print(f'Слово {word} встречается {x} раз')
-     word_counts.append(x)
+    if word in counted_words_set:
+        # вернуться к началу итерации (не выполнять дальше тело цикла)
+        continue
+    count = preprocessed_words.count(word)
+    print(f'Слово {word} встречается {count} раз')
+    word_tuple = (count, word)
+    word_counts.append(word_tuple)
+    counted_words_set.add(word)
 
 print(word_counts)
-print(max(word_counts))
-print(min(word_counts))
+
+print("Наиболее встречаемый", max(word_counts))
+print("Наименее встречаемый", min(word_counts))
+
 # сортируем популяцию слов по убыванию (от большего к меньшему)
 # оказывается, много дубликатов...
-print(sorted(word_counts, reverse=True))
+word_counts.sort(reverse=True)
+print("Сортированный по убыванию", word_counts)
 
-# убираем дубликаты
-unique_word_counts = set(word_counts)
-# сортируем еще раз - сет нарушает порядок значений
-sorted_unique_word_counts = sorted(unique_word_counts, reverse=True)
 # выводим топ 5 :)
-print(sorted_unique_word_counts[:5])
+print("Топ 5", word_counts[:5])
 
-# пример работы с множеством (будет продолжение и разбор дальше)
-x = set([5, 5, 4, 5, 4, 3, 1, 4, 3, 2])
-print(x)
+# выводим нижние 5 :)
+print("Топ 5 с конца", word_counts[-5:][::-1])
