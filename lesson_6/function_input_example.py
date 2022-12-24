@@ -1,4 +1,4 @@
-
+from helper_functions import get_int_from_user
 
 # positioned - идут по порядку
 def get_float_from_user(comment: str, lower_bound: float = -9999999, upper_bound: float = 9999999) -> float:
@@ -24,3 +24,7 @@ def get_float_from_user(comment: str, lower_bound: float = -9999999, upper_bound
 my_number = get_float_from_user('Input float:')
 print(my_number)
 print(get_float_from_user('Float:', upper_bound=9999999999, lower_bound=0))
+
+
+my_number = get_int_from_user('Input int:', lower_bound=0)
+print(my_number)
