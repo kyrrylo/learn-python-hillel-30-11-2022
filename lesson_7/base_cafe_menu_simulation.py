@@ -1,18 +1,39 @@
 menu_cafe = [
-    ('Американо', 30),
-    ('Раф', 40),
-    ('Чай "Альпийские луга"', 25),
-    ('Чай облепиховый', 30),
-    ('Печеньки', 5),
-    ('Круассан', 25),
-    ('Пончики', 20),
+    {
+        "name": "Американо",
+        "price": 30
+    },
+    {
+        "name": "Раф",
+        "price": 40
+    },
+    {
+        "name": 'Чай "Альпийские луга"',
+        "price": 25
+    },
+    {
+        "name": "Чай облепиховый",
+        "price": 30
+    },
+    {
+        "name": "Печеньки",
+        "price": 5
+    },
+    {
+        "name": "Круассан",
+        "price": 25
+    },
+    {
+        "name": "Пончики",
+        "price": 20
+    }
 ]
 
 
 def display_menu():
     print('Меню')
     for i, element in enumerate(menu_cafe):
-        print(f'  {i + 1}. {element[0]:25}{element[1]:5.2f} UAH ')
+        print(f'  {i + 1}. {element["name"]:25}{element["price"]:5.2f} UAH ')
     print(f'  {len(menu_cafe) + 1}. Выход')
 
 
@@ -26,8 +47,8 @@ def purchase_from_menu():
         print(f'Приходите еще, будем рады вас видеть!')
         exit(0)
     menu_item = menu_cafe[menu_index - 1]
-    pocket_size -= menu_item[1]
-    print(f'Сейчас вам будет подано {menu_item[0]}, пожалуйста ожидайте. Желаете что-нибудь еще?')
+    pocket_size -= menu_item["price"]
+    print(f'Сейчас вам будет подано {menu_item["name"]}, пожалуйста ожидайте. Желаете что-нибудь еще?')
 
 
 def get_int_from_user(comment: str, lower_bound: int = -9999999, upper_bound: int = 9999999) -> int:
@@ -50,5 +71,3 @@ if __name__ == '__main__':
     pocket_size = 100
     while True:
         purchase_from_menu()
-
-
