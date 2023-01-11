@@ -1,0 +1,20 @@
+this is text file
+it will be read by python script
+hello world
+it has lines
+rows
+and whatever
+dont use mode=w unless you want to loose this file contents :)
+first line
+second line
+well lets not count
+last line!first line
+second line
+well lets not count
+last line!first line
+second line
+well lets not count
+last line!first line
+second line
+well lets not count
+last line!

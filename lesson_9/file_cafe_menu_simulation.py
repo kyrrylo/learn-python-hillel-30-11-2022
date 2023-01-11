@@ -1,45 +1,47 @@
-menu_cafe = [
-    {
-        "name": "Американо",
-        "price": 30
-    },
-    {
-        "name": "Раф",
-        "price": 40
-    },
-    {
-        "name": "Чай \"Альпийские луга\"",
-        "price": 25
-    },
-    {
-        "name": "Чай облепиховый",
-        "price": 30
-    },
-    {
-        "name": "Печеньки",
-        "price": 5
-    },
-    {
-        "name": "Круассан",
-        "price": 25
-    },
-    {
-        "name": "Пончики",
-        "price": 20
-    }
-]
+import json
 
 
-def display_menu():
+def load_menu_json(json_filename: str) -> list:
+    """
+    Читает меню из json-файла, возвращает меню в формате списка
+    :param json_filename: джсон файл с меню
+    :return: меню в формате списка словарей
+    """
+    return json.load(open(json_filename, encoding='utf-8'))
+
+
+def load_menu(filename: str) -> list:
+    """
+    Читает меню из файла, возвращает меню в формате списка
+    :param filename: файл с меню
+    :return: меню в формате списка
+    """
+    menu_cafe = []
+    with open(filename, encoding='utf-8', mode='r') as f:
+        for menu_item in f.readlines():
+            try:
+                name, price = menu_item.strip().split(':')
+                price = float(price)
+                menu_cafe.append({
+                    "name": name,
+                    "price": price
+                })
+            except Exception:
+                # парсинг - процесс конвертирования обычной строки в осмысленные и важные для программы значения (бизнес логику)
+                print(f'Не удалось распарсить строку меню: {menu_item}')
+    return menu_cafe
+
+
+def display_menu(menu_cafe: list):
     print('Меню')
     for i, element in enumerate(menu_cafe):
         print(f'  {i + 1}. {element["name"]:25}{element["price"]:5.2f} UAH ')
     print(f'  {len(menu_cafe) + 1}. Выход')
 
 
-def purchase_from_menu():
+def purchase_from_menu(menu_cafe: list):
     global pocket_size
-    display_menu()
+    display_menu(menu_cafe)
     exit_index = len(menu_cafe) + 1
     print(f'У вас есть {pocket_size:6.2f} UAH. Что будете заказывать?')
     menu_index = get_int_from_user('> ', lower_bound=1, upper_bound=exit_index)
@@ -69,5 +71,7 @@ def get_int_from_user(comment: str, lower_bound: int = -9999999, upper_bound: in
 
 if __name__ == '__main__':
     pocket_size = 100
+    # menu = load_menu('cafe_menu.txt')
+    menu = load_menu_json('cafe_menu.json')
     while True:
-        purchase_from_menu()
+        purchase_from_menu(menu)
