@@ -1,4 +1,4 @@
-import json
+import csv
 # unique user identification
 from uuid import uuid4
 
@@ -49,7 +49,13 @@ def positions_in_department_view(
 
 
 if __name__ == '__main__':
-    data = json.load(open('hr_department.json', 'r'))
+    data = {
+        'data': list()
+    }
+    with open('hr_department.csv', newline='') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            data['data'].append(row)
     print(type(data), data)
 
     # создаём уникальный айдишник под каждую запись (работника)
