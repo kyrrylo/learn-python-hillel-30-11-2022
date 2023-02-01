@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 
 
 if __name__ == '__main__':
+    # create pets
     cats = list()
     cat_food = [
         'whiskas',
@@ -30,12 +31,13 @@ if __name__ == '__main__':
             last_vet_check=last_vet_check
         ))
 
-    # all cats are eating
+    # performing pet everyday lifestyle
     for cat in cats:
+        cat.sleep(4)
         for food in random.choices(cat_food, k=5):
             cat.eat(food)
 
-    # check if all is good
+    # check if all pets are good
     for cat in cats:
         print(f'Проверяем всё ли хорошо с {cat}')
         if not cat.fed_check:
