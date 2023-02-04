@@ -21,6 +21,7 @@ if __name__ == '__main__':
     ]
     for cat in cats:
         print(cat)
+        print([cat])
         print(type(cat))
         print(cat.name, cat.age, cat.breed, cat.gender, cat.preferable_meal)
         cat.meow(random.randint(1, 6))

@@ -38,6 +38,10 @@ class Cat:
     def __str__(self) -> str:
         return f'{self.gender.capitalize()} породы {self.breed} по имени {self.name}, возраст {self.age} лет, обычно кушает {", ".join(self.preferable_meal)}'
 
+    def __repr__(self) -> str:
+        # repr - representation
+        return str(self)
+
     def sleep(self, hours: int):
         """
         Кошка спит. Чем старше кошка, тем дольше спит
