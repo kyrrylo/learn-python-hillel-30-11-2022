@@ -1,6 +1,6 @@
-from cat import Cat
-from hen import Hen
-from cow import Cow
+from animals import Cat
+from animals import Hen
+from animals import Cow
 import random
 
 
