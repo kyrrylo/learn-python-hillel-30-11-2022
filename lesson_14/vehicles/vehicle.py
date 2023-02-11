@@ -39,6 +39,28 @@ class Vehicle:
 
         self.construct()
 
+    # getter - метод для получения копии значения защищенного поля
+    # setter - метод для установки значения защищенного поля
+
+    @property
+    def construction_needed(self):
+        return self._construction_needed
+
+    @property
+    def maintenance_needed(self):
+        return self._maintenance_needed
+
+    @maintenance_needed.setter
+    def maintenance_needed(self, new_value: bool):
+        if not new_value:
+            self._km_passed_after_mt = 0.0
+            self._maintenance_needed = new_value
+            print(f'ТО для {self} успешно завершено!')
+        elif self._km_passed_after_mt > self.maintenance_needed_km:
+            self._maintenance_needed = new_value
+            print(f'Пройдено {self._km_passed_after_mt:.1f}км после последнего ТО на {self}! Необходимо ТО!')
+
+
     def __str__(self):
         return f'Транспортное средство {self.model} цвета {self.color}'
 
@@ -66,7 +88,6 @@ class Vehicle:
             return -1
         actual_speed = min(local_speed_limit, self.speed_limit)
         self._km_passed_after_mt += km
-        if self._km_passed_after_mt > self.maintenance_needed_km:
-            self._maintenance_needed = True
-            print(f'Пройдено {self._km_passed_after_mt:.1f}км после последнего ТО на {self}! Необходимо ТО!')
+        self.maintenance_needed = True
+
         return round(km / actual_speed, 2)
