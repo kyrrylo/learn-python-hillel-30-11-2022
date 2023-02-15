@@ -1,4 +1,5 @@
 import os
+import datetime
 
 # Варианты обмена данными с пользователем для программного обеспечения
 # 1. ввод и вывод через консоль
@@ -8,20 +9,31 @@ import os
 # 3. ввод/вывод через файл
 # 4. ввод/вывод через интернет, адрес в сети
 
-def read_file(filename: str):
+
+def read_file(filename: str, bytes_to_read: int = None):
     """
     Функция читает текстовый файл, пользуясь встроенной функцией read
     :param filename: имя файла для чтения
+    :param bytes_to_read:
     """
+    if isinstance(bytes_to_read, type(None)):
+        bytes_in_file = os.stat(filename)
+        if bytes_in_file < 1000:
+            bytes_to_read = bytes_in_file
+        elif bytes_in_file < 1000000:
+            bytes_to_read = int(bytes_in_file * 0.1)
+        else:
+            bytes_to_read = 100000
+
     # так делать нужно - автоматически вызывается "закрыватель файла"
     # f = open(filename, mode='r') а вот так делать не рекомендуется
     with open(filename, mode='r') as f:
         # r - read, w - write, a - append
         print(f, type(f))
-        x = f.read(10)
+        x = f.read(bytes_to_read)
         while x:
             print(x)
-            x = f.read(10)
+            x = f.read(bytes_to_read)
         # EOF - end of file, служебный "невидимый" символ, натыкаясь на который, программа понимает что файл прочитан
         print('file is over')
 

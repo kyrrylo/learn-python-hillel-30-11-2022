@@ -32,6 +32,7 @@ menu_cafe = [
 
 def display_menu():
     print('Меню')
+    # O(n) + O(n) = O(2n) + O(1) + O(1) = O(n)
     for i, element in enumerate(menu_cafe):
         print(f'  {i + 1}. {element["name"]:25}{element["price"]:5.2f} UAH ')
     print(f'  {len(menu_cafe) + 1}. Выход')
@@ -39,9 +40,12 @@ def display_menu():
 
 def purchase_from_menu():
     global pocket_size
+    # O(n)
     display_menu()
+    # O(1)
     exit_index = len(menu_cafe) + 1
     print(f'У вас есть {pocket_size:6.2f} UAH. Что будете заказывать?')
+    # O(1)
     menu_index = get_int_from_user('> ', lower_bound=1, upper_bound=exit_index)
     if menu_index == exit_index:
         print(f'Приходите еще, будем рады вас видеть!')
